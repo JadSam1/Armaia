@@ -188,8 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             if (navigator.share) {
                 navigator.share({
-                    title: 'Check out this JadSam fashion look!',
-                    text: 'I found this amazing fashion look on JadSam.',
+                    title: 'Check out this ARMAIA fashion look!',
+                    text: 'I found this amazing fashion look on ARMAIA.',
                     url: window.location.href
                 })
                 .catch(error => console.log('Error sharing:', error));

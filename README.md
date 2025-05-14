@@ -1,6 +1,6 @@
-# JadSam Fashion App Homepage
+# ARMAIA Fashion App Homepage
 
-This is an exact 1:1 replica of the JadSam fashion app homepage, a luxurious fashion shopping application designed for seamless instant purchases directly inspired by social media.
+This is an exact 1:1 replica of the ARMAIA fashion app homepage, a luxurious fashion shopping application designed for seamless instant purchases directly inspired by social media.
 
 ## Features
 
