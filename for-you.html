@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JadSam - For You</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="for-you.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="4" fill="#1A2533"/>
+                    <path d="M12 5L14.5 9.5L19 12L14.5 14.5L12 19L9.5 14.5L5 12L9.5 9.5L12 5Z" fill="white"/>
+                </svg>
+            </div>
+            <div class="logo-text">JadSam</div>
+        </div>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Discover <span class="dropdown-arrow">▼</span></a>
+                    <div class="dropdown-menu">
+                        <a href="for-you.html" class="dropdown-item active">For You</a>
+                        <a href="#" class="dropdown-item">AI Stylist</a>
+                    </div>
+                </li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">News</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Support <span class="dropdown-arrow">▼</span></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="signup-container">
+            <a href="#" class="signup-button">Sign up</a>
+        </div>
+    </header>
+
+    <main class="for-you-page">
+        <div class="page-header">
+            <h1 class="page-title">For You</h1>
+            <div class="view-toggle">
+                <button class="view-btn grid-view active">Grid</button>
+                <button class="view-btn phone-view">Phone</button>
+            </div>
+        </div>
+        
+        <div class="video-grid">
+            <!-- Video 1 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <video loop muted playsinline data-src="videos/fashion-video-1.mp4">
+                        <source src="videos/fashion-video-1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-actions">
+                        <button class="action-btn like-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">245</span>
+                        </button>
+                        <button class="action-btn comment-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12c0 4.97-4.03 9-9 9-1.63 0-3.15-.43-4.47-1.19L3 21l1.26-4.11C3.48 15.65 3 13.89 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9z" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">56</span>
+                        </button>
+                        <button class="action-btn share-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM6 15c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM18 15c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8.59 13.51l6.83 3.98M8.59 10.49l6.83-3.98" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">Share</span>
+                        </button>
+                        <button class="action-btn shop-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.5 7.67V6.7c0-2.25 1.81-4.2 4.06-4.2 2.25 0 4.06 1.89 4.06 4.2v.97" stroke="#1A2533" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8.74 18H15.26C18.73 18 19.25 16.73 19.41 15.39L20.23 9.39C20.43 7.72 19.71 6.5 16.26 6.5H7.74C4.29 6.5 3.57 7.72 3.77 9.39L4.59 15.39C4.75 16.73 5.27 18 8.74 18Z" stroke="#1A2533" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15.5 9.5H15.51M8.5 9.5H8.51" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">Shop</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <div class="creator-info">
+                        <img src="images/profile-1.jpg" alt="Creator profile" class="profile-pic">
+                        <div class="creator-details">
+                            <h3 class="creator-name">@fashionista</h3>
+                            <p class="video-caption">Effortless summer look for your weekend outings #summeroutfit #weekendlook</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <video loop muted playsinline data-src="videos/fashion-video-2.mp4">
+                        <source src="videos/fashion-video-2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-actions">
+                        <button class="action-btn like-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">532</span>
+                        </button>
+                        <button class="action-btn comment-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12c0 4.97-4.03 9-9 9-1.63 0-3.15-.43-4.47-1.19L3 21l1.26-4.11C3.48 15.65 3 13.89 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9z" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">78</span>
+                        </button>
+                        <button class="action-btn share-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM6 15c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM18 15c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8.59 13.51l6.83 3.98M8.59 10.49l6.83-3.98" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">Share</span>
+                        </button>
+                        <button class="action-btn shop-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.5 7.67V6.7c0-2.25 1.81-4.2 4.06-4.2 2.25 0 4.06 1.89 4.06 4.2v.97" stroke="#1A2533" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8.74 18H15.26C18.73 18 19.25 16.73 19.41 15.39L20.23 9.39C20.43 7.72 19.71 6.5 16.26 6.5H7.74C4.29 6.5 3.57 7.72 3.77 9.39L4.59 15.39C4.75 16.73 5.27 18 8.74 18Z" stroke="#1A2533" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15.5 9.5H15.51M8.5 9.5H8.51" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">Shop</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <div class="creator-info">
+                        <img src="images/profile-2.jpg" alt="Creator profile" class="profile-pic">
+                        <div class="creator-details">
+                            <h3 class="creator-name">@style_icon</h3>
+                            <p class="video-caption">Perfect casual look for office to evening transition #officestyle #casualchic</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-card">
+                <div class="video-container">
+                    <video loop muted playsinline data-src="videos/fashion-video-3.mp4">
+                        <source src="videos/fashion-video-3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-actions">
+                        <button class="action-btn like-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">789</span>
+                        </button>
+                        <button class="action-btn comment-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 12c0 4.97-4.03 9-9 9-1.63 0-3.15-.43-4.47-1.19L3 21l1.26-4.11C3.48 15.65 3 13.89 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9z" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">124</span>
+                        </button>
+                        <button class="action-btn share-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM6 15c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM18 15c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8.59 13.51l6.83 3.98M8.59 10.49l6.83-3.98" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">Share</span>
+                        </button>
+                        <button class="action-btn shop-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.5 7.67V6.7c0-2.25 1.81-4.2 4.06-4.2 2.25 0 4.06 1.89 4.06 4.2v.97" stroke="#1A2533" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8.74 18H15.26C18.73 18 19.25 16.73 19.41 15.39L20.23 9.39C20.43 7.72 19.71 6.5 16.26 6.5H7.74C4.29 6.5 3.57 7.72 3.77 9.39L4.59 15.39C4.75 16.73 5.27 18 8.74 18Z" stroke="#1A2533" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15.5 9.5H15.51M8.5 9.5H8.51" stroke="#1A2533" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="count">Shop</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <div class="creator-info">
+                        <img src="images/profile-3.jpg" alt="Creator profile" class="profile-pic">
+                        <div class="creator-details">
+                            <h3 class="creator-name">@trend_setter</h3>
+                            <p class="video-caption">This season's must-have accessories #accessories #fashiontrends</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="for-you.js"></script>
+</body>
+</html> 

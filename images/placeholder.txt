@@ -1,0 +1,15 @@
+IMPORTANT: Add the hero image to this directory
+
+Please save the purple fashion boutique image as "hero-image.jpg" in this directory.
+
+The image should show:
+- An elegant, abstract store-like scene with soft purple gradients
+- Two women facing each other in a fashion boutique setting
+- Minimalist clothing racks with pastel-colored garments
+- Glossy reflective floor
+- Dreamy lighting effects
+
+The CSS file is configured to use this image at:
+.hero-image {
+    background-image: url('images/hero-image.jpg');
+} 

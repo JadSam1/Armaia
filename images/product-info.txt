@@ -1,0 +1,26 @@
+# Product Images for Shop Feature
+
+To complete the shopping feature with product images, you need to add the following image:
+
+## Required Image:
+
+1. **Main Product Image (First Video)**
+   - Filename: `product-1.jpg`
+   - Description: Image of a summer dress
+   - Recommended size: 600x800 pixels
+   - Place in the `images` directory
+
+## How it works:
+
+When you click the "Shop" button on the first video, the product modal will display this image in the product details. This is configured in the JavaScript file where the `hasImage` property is set to `true` for the first product.
+
+## Sample Image Sources:
+
+You can use images from:
+- Fashion e-commerce websites (for personal use only)
+- Stock photo websites like Unsplash or Pexels
+- Create your own product photos
+
+## Placeholder:
+
+If you don't add the image, the system will show a placeholder saying "Product image not available" for all products. 
