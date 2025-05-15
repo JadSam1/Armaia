@@ -8,7 +8,7 @@
 body {
     font-family: 'Inter', sans-serif;
     background-color: #F7F1E8;
-    color: #1A2533;
+    color: #4A3520;
     overflow-x: hidden;
 }
 
@@ -40,7 +40,7 @@ header {
 .logo-text {
     font-weight: 600;
     font-size: 20px;
-    color: #1A2533;
+    color: #4A3520;
 }
 
 nav {
@@ -56,7 +56,7 @@ nav ul {
 nav ul li a {
     font-size: 16px;
     font-weight: 500;
-    color: #1A2533;
+    color: #4A3520;
     transition: all 0.2s ease;
     padding: 6px 0;
     position: relative;
@@ -128,7 +128,7 @@ nav ul li a:hover {
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 24px;
-    color: #1A2533;
+    color: #4A3520;
 }
 
 .hero p {
@@ -165,12 +165,12 @@ nav ul li a:hover {
 
 .btn-secondary {
     background-color: transparent;
-    color: #1A2533;
-    border: 1px solid #1A2533;
+    color: #4A3520;
+    border: 1px solid #4A3520;
 }
 
 .btn-secondary:hover {
-    background-color: rgba(26, 37, 51, 0.05);
+    background-color: rgba(74, 53, 32, 0.05);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -234,14 +234,14 @@ nav ul li a:hover {
 .feature-icon svg {
     width: 32px;
     height: 32px;
-    color: #1A2533;
+    color: #4A3520;
     stroke-width: 1.5;
 }
 
 .feature-card h2 {
     font-size: 24px;
     font-weight: 600;
-    color: #1A2533;
+    color: #4A3520;
     margin-bottom: 16px;
     line-height: 1.2;
 }
@@ -390,13 +390,13 @@ nav ul li a:hover {
 .dropdown-item {
     display: block;
     padding: 10px 20px;
-    color: #1A2533;
+    color: #4A3520;
     font-size: 15px;
     transition: all 0.2s ease;
 }
 
 .dropdown-item:hover {
-    background-color: rgba(26, 37, 51, 0.05);
+    background-color: rgba(74, 53, 32, 0.05);
 }
 
 .dropdown-toggle {

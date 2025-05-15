@@ -199,10 +199,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Handle shop button clicks
+    // Handle shop button clicks with improved touch support
     const shopButtons = document.querySelectorAll('.shop-btn');
     
     shopButtons.forEach((button, index) => {
+        // Add touchstart event for better mobile response
+        button.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("Shop button touched for video index:", index);
+            
+            try {
+                // Instead of showing product modal directly, show product selection page
+                showProductSelectionPage(index);
+            } catch (error) {
+                console.error("Error showing product selection page:", error);
+                // Make sure body scroll is restored if there's an error
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Keep regular click event for non-touch devices
         button.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -280,6 +297,14 @@ document.addEventListener('DOMContentLoaded', function() {
             // Ensure the overlay is correctly positioned in the viewport
             selectionOverlay.style.top = "0";
             selectionOverlay.style.left = "0";
+            
+            // iOS Safari fix for fixed positioning
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIOS) {
+                selectionOverlay.style.position = 'absolute';
+                selectionOverlay.style.height = '100%';
+                selectionOverlay.style.width = '100%';
+            }
             
             // Prevent body scroll and store the current position
             document.body.style.overflow = 'hidden';
