@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARMAIA - AI Stylist</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="ai-stylist.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Product display in chat messages */
+        .product-recommendation {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+            width: 100%;
+        }
+
+        .product-card-chat {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .product-card-chat:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-card-chat img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .product-card-chat-info {
+            padding: 12px;
+            flex: 1;
+        }
+
+        .product-card-chat-name {
+            font-weight: 600;
+            color: #4A3520;
+            margin: 0 0 4px 0;
+            font-size: 14px;
+        }
+
+        .product-card-chat-price {
+            color: #4A3520;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        /* Mobile styling for product cards in chat */
+        @media (max-width: 576px) {
+            .product-card-chat img {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .product-card-chat-info {
+                padding: 10px;
+            }
+            
+            .product-card-chat-name {
+                font-size: 13px;
+            }
+            
+            .product-card-chat-price {
+                font-size: 13px;
+            }
+            
+            .message-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="4" fill="#4A3520"/>
+                    <path d="M12 5L14.5 9.5L19 12L14.5 14.5L12 19L9.5 14.5L5 12L9.5 9.5L12 5Z" fill="white"/>
+                </svg>
+            </div>
+            <div class="logo-text">ARMAIA</div>
+        </div>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Discover <span class="dropdown-arrow">▼</span></a>
+                    <div class="dropdown-menu">
+                        <a href="for-you.html" class="dropdown-item">For You</a>
+                        <a href="ai-stylist.html" class="dropdown-item active">AI Stylist</a>
+                    </div>
+                </li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">News</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Support <span class="dropdown-arrow">▼</span></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="signup-container">
+            <a href="#" class="signup-button">Sign up</a>
+        </div>
+    </header>
+
+    <main class="ai-stylist-page">
+        <div class="page-header">
+            <h1 class="page-title">AI Stylist</h1>
+            <p class="page-subtitle">Your personalized fashion companion</p>
+        </div>
+        
+        <div class="chat-container">
+            <div class="chat-window" id="chat-window">
+                <div class="chat-message ai-message">
+                    <div class="message-avatar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" rx="4" fill="#4A3520"/>
+                            <path d="M12 5L14.5 9.5L19 12L14.5 14.5L12 19L9.5 14.5L5 12L9.5 9.5L12 5Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! I'm your ARMAIA AI Stylist. I'm here to help you discover your perfect style. You can ask me about:</p>
+                        <ul>
+                            <li>Outfit recommendations for specific occasions</li>
+                            <li>Style tips based on your preferences</li>
+                            <li>Advice on current fashion trends</li>
+                            <li>How to pair different pieces in your wardrobe</li>
+                            <li>Suggestions for accessories to complete your look</li>
+                        </ul>
+                        <p>What can I help you with today?</p>
+                    </div>
+                </div>
+                
+                <!-- Messages will be added here dynamically -->
+            </div>
+            
+            <div class="chat-input-container">
+                <form id="chat-form">
+                    <input 
+                        type="text" 
+                        id="chat-input" 
+                        placeholder="Ask me about styling advice..." 
+                        autocomplete="off"
+                    >
+                    <button type="submit" id="send-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 2L11 13" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // JavaScript to toggle dropdown menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const parent = this.parentElement;
+                    const menu = parent.querySelector('.dropdown-menu');
+                    
+                    // Close all other open dropdowns
+                    document.querySelectorAll('.dropdown-menu.active').forEach(openMenu => {
+                        if (openMenu !== menu) {
+                            openMenu.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle the current dropdown
+                    if (menu) {
+                        menu.classList.toggle('active');
+                    }
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    document.querySelectorAll('.dropdown-menu.active').forEach(menu => {
+                        menu.classList.remove('active');
+                    });
+                }
+            });
+
+            // Chat functionality
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            const chatWindow = document.getElementById('chat-window');
+            
+            // Conversation state management
+            let conversationState = {
+                stage: "initial",
+                context: {},
+                history: []
+            };
+            
+            // Add initial greeting message
+            // This is already done in the HTML
+
+            // Define contextual responses based on conversation state
+            const responseLibrary = {
+                // Outfit recommendation for specific occasions
+                beachside_gathering: {
+                    initial: "Sounds lovely! For a beachside gathering, I'd recommend focusing on breathable fabrics and elegant casual styles. Would you prefer trying something new, or would you like to stick closer to your usual style?",
+                    style_preference_new: "Great! I love your openness to new styles. For a beachside gathering, I recommend a flowy linen midi dress in a soft neutral tone paired with leather sandals and a wide-brim hat. This creates an effortlessly elegant look while keeping you comfortable in the coastal environment. Would you like suggestions for accessories to complete this look?",
+                    style_preference_usual: "I understand you prefer what works for you. For a beachside gathering, consider elevating your usual style with lightweight natural fabrics. Perhaps a refined version of your go-to silhouette in breathable linen or cotton, paired with elegant sandals and subtle accessories. Would you like more specific suggestions based on your typical preferences?",
+                    accessories: "To complete your beachside look, I suggest delicate gold-toned jewelry that won't tarnish in salt water, a stylish wide-brim hat for sun protection, and a quality woven tote bag. These additions will enhance your outfit while maintaining the elegant, relaxed aesthetic perfect for coastal gatherings."
+                },
+                
+                // Generic responses for various outfit occasions
+                outfit_recommendation: {
+                    initial: "I'd be happy to help with an outfit recommendation. Could you tell me what occasion you're dressing for?",
+                    follow_up: "And would you prefer something that follows current trends or a more timeless look?",
+                    style_question: "Would you describe your personal style as more classic, minimalist, bohemian, or something else?"
+                },
+                
+                // Brand and style insights
+                brand_review: {
+                    initial: "I'd be happy to provide insights on specific brands. Which brand would you like me to review in terms of style, quality, and value?",
+                    armaia_specific: "ARMAIA pieces feature exceptional craftsmanship with a focus on timeless design and sustainable practices. Each garment is created with premium materials that ensure longevity and comfort, justifying the investment in quality over fast fashion alternatives."
+                }
+            };
+            
+            // Pattern matching for user inputs
+            function analyzeUserInput(input) {
+                input = input.toLowerCase();
+                
+                // Check for outfit request phrase
+                if (input.includes("yes, give me a complete outfit") || 
+                    input.includes("give me a complete outfit") || 
+                    input.includes("complete outfit")) {
+                    return {
+                        intent: "outfit_request",
+                        specific: "complete_outfit"
+                    };
+                }
+                
+                // Detect outfit recommendation requests
+                if (input.includes("outfit") || input.includes("wear") || input.includes("dress")) {
+                    // Detect specific occasions
+                    if (input.includes("beach") || input.includes("coastal") || input.includes("seaside") || input.includes("beachside")) {
+                        return {
+                            intent: "outfit_recommendation",
+                            occasion: "beachside_gathering"
+                        };
+                    }
+                    
+                    if (input.includes("wedding") || input.includes("ceremony")) {
+                        return {
+                            intent: "outfit_recommendation",
+                            occasion: "wedding"
+                        };
+                    }
+                    
+                    if (input.includes("office") || input.includes("work") || input.includes("professional")) {
+                        return {
+                            intent: "outfit_recommendation",
+                            occasion: "work"
+                        };
+                    }
+                    
+                    if (input.includes("date") || input.includes("dinner")) {
+                        return {
+                            intent: "outfit_recommendation",
+                            occasion: "date_night"
+                        };
+                    }
+                    
+                    // Generic outfit recommendation
+                    return {
+                        intent: "outfit_recommendation",
+                        occasion: "general"
+                    };
+                }
+                
+                // Detect style preference responses
+                if (input.includes("new") || input.includes("different") || input.includes("try")) {
+                    return {
+                        intent: "style_preference",
+                        preference: "new"
+                    };
+                }
+                
+                if (input.includes("usual") || input.includes("same") || input.includes("comfortable") || input.includes("stick")) {
+                    return {
+                        intent: "style_preference",
+                        preference: "usual"
+                    };
+                }
+                
+                // Detect accessory interest
+                if (input.includes("yes") && (
+                    input.includes("accessory") || input.includes("accessories") || 
+                    input.includes("complete") || input.includes("suggestion")
+                )) {
+                    return {
+                        intent: "accessories",
+                        interest: "yes"
+                    };
+                }
+                
+                if (input.includes("no") && (
+                    input.includes("accessory") || input.includes("accessories") || 
+                    input.includes("complete") || input.includes("suggestion")
+                )) {
+                    return {
+                        intent: "accessories",
+                        interest: "no"
+                    };
+                }
+                
+                // Default response for unrecognized inputs
+                return {
+                    intent: "unknown"
+                };
+            }
+            
+            // Generate appropriate response based on conversation state and user input
+            function generateResponse(userInput) {
+                // Analyze user input
+                const analysis = analyzeUserInput(userInput);
+                
+                // Handle specific outfit request
+                if (analysis.intent === "outfit_request" && analysis.specific === "complete_outfit") {
+                    // Return a special response that will be handled differently to display products
+                    return {
+                        type: "product_recommendation",
+                        message: "Here's a complete outfit I recommend:",
+                        products: [
+                            {
+                                name: "White Fluffy Cotton Jacket",
+                                price: "$129.99",
+                                image: "images/product-1.jpg",
+                                videoIndex: 0,
+                                productIndex: 0
+                            },
+                            {
+                                name: "Slim-Fit Grey Jeans",
+                                price: "$49.99",
+                                image: "images/product-2.jpg",
+                                videoIndex: 0,
+                                productIndex: 1
+                            },
+                            {
+                                name: "Golden Goose Superstar Sneakers",
+                                price: "$495.00",
+                                image: "images/product-3.jpg",
+                                videoIndex: 0,
+                                productIndex: 2
+                            }
+                        ]
+                    };
+                }
+                
+                // Update conversation state based on analysis
+                if (analysis.intent === "outfit_recommendation") {
+                    conversationState.stage = "outfit_recommendation";
+                    conversationState.context.occasion = analysis.occasion;
+                    
+                    // Return appropriate response for the occasion
+                    if (analysis.occasion === "beachside_gathering") {
+                        return responseLibrary.beachside_gathering.initial;
+                    } else {
+                        return responseLibrary.outfit_recommendation.initial;
+                    }
+                }
+                
+                // Handle style preference responses
+                if (analysis.intent === "style_preference") {
+                    // Check if we're in the outfit recommendation flow
+                    if (conversationState.stage === "outfit_recommendation") {
+                        conversationState.stage = "style_preference";
+                        conversationState.context.preference = analysis.preference;
+                        
+                        // Return response based on occasion and preference
+                        if (conversationState.context.occasion === "beachside_gathering") {
+                            if (analysis.preference === "new") {
+                                return responseLibrary.beachside_gathering.style_preference_new;
+                            } else {
+                                return responseLibrary.beachside_gathering.style_preference_usual;
+                            }
+                        }
+                    }
+                }
+                
+                // Handle accessory interest
+                if (analysis.intent === "accessories") {
+                    conversationState.stage = "accessories";
+                    
+                    // Check if we're in the beachside gathering flow
+                    if (conversationState.context.occasion === "beachside_gathering") {
+                        return responseLibrary.beachside_gathering.accessories;
+                    }
+                }
+                
+                // If user input doesn't match any patterns, provide a fallback response
+                if (conversationState.stage === "outfit_recommendation" && conversationState.context.occasion) {
+                    // Assume they're asking for style preference in this case
+                    return "Would you prefer trying something new for this occasion, or would you like recommendations that align with your usual style?";
+                }
+                
+                // Default fallback response
+                return "I'd be happy to help with that. Could you provide a bit more detail about what you're looking for?";
+            }
+            
+            chatForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const message = chatInput.value.trim();
+                if (message === '') return;
+                
+                // Add user message
+                addMessage(message, 'user');
+                chatInput.value = '';
+                
+                // Scroll to bottom
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+                
+                // Generate contextual response
+                const response = generateResponse(message);
+                
+                // Simulate AI thinking
+                setTimeout(() => {
+                    // Show typing indicator
+                    addTypingIndicator();
+                    
+                    // Scroll to show typing indicator
+                    chatWindow.scrollTop = chatWindow.scrollHeight;
+                    
+                    // Simulate AI response delay
+                    setTimeout(() => {
+                        // Remove typing indicator
+                        removeTypingIndicator();
+                        
+                        // Check if response is a product recommendation
+                        if (typeof response === 'object' && response.type === 'product_recommendation') {
+                            addProductRecommendation(response);
+                        } else {
+                            // Add regular AI response
+                            addMessage(response, 'ai');
+                        }
+                        
+                        // Scroll to bottom again after adding the message
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
+                    }, 1500);
+                }, 500);
+            });
+            
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message ${sender}-message`;
+                
+                if (sender === 'ai') {
+                    messageDiv.innerHTML = `
+                        <div class="message-avatar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="24" height="24" rx="4" fill="#4A3520"/>
+                                <path d="M12 5L14.5 9.5L19 12L14.5 14.5L12 19L9.5 14.5L5 12L9.5 9.5L12 5Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div class="message-content">
+                            <p>${text}</p>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.innerHTML = `
+                        <div class="message-content">
+                            <p>${text}</p>
+                        </div>
+                    `;
+                }
+                
+                // Add animation class for fade-in effect
+                messageDiv.classList.add('message-appear');
+                
+                chatWindow.appendChild(messageDiv);
+            }
+            
+            function addProductRecommendation(recommendationData) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message ai-message message-appear';
+                
+                let productsHTML = '';
+                recommendationData.products.forEach(product => {
+                    productsHTML += `
+                        <div class="product-card-chat" data-video-index="${product.videoIndex}" data-product-index="${product.productIndex}">
+                            <img src="${product.image}" alt="${product.name}">
+                            <div class="product-card-chat-info">
+                                <h4 class="product-card-chat-name">${product.name}</h4>
+                                <div class="product-card-chat-price">${product.price}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" rx="4" fill="#4A3520"/>
+                            <path d="M12 5L14.5 9.5L19 12L14.5 14.5L12 19L9.5 14.5L5 12L9.5 9.5L12 5Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="message-content">
+                        <p>${recommendationData.message}</p>
+                        <div class="product-recommendation">
+                            ${productsHTML}
+                        </div>
+                    </div>
+                `;
+                
+                chatWindow.appendChild(messageDiv);
+                
+                // Add click event listeners to the product cards
+                const productCards = messageDiv.querySelectorAll('.product-card-chat');
+                productCards.forEach(card => {
+                    card.addEventListener('click', function() {
+                        const videoIndex = parseInt(this.dataset.videoIndex);
+                        const productIndex = parseInt(this.dataset.productIndex);
+                        
+                        const scrollY = window.scrollY || window.pageYOffset;
+                        
+                        // Get the product data from the for-you.js getVideoProducts function
+                        const product = getProductFromForYou(videoIndex, productIndex);
+                        
+                        // Show product modal
+                        showProductModal(product, scrollY);
+                    });
+                });
+            }
+            
+            // Function to get product data from for-you.js
+            function getProductFromForYou(videoIndex, productIndex) {
+                // Define products for each video (copied from for-you.js)
+                const productsForVideos = [
+                    // Video 1 products
+                    [
+                        {
+                            name: "White Fluffy Cotton Jacket",
+                            price: "$129.99",
+                            description: "Luxurious white fluffy cotton jacket with a cozy textured finish. Features a relaxed silhouette, convenient front pockets, and premium quality cotton blend for both comfort and style. A perfect statement piece for your winter and spring wardrobe.",
+                            image: "images/product-1.jpg",
+                            hasImage: true,
+                            productUrl: "https://www.zara.com/us/en/faux-fur-jacket-zw-collection-p04360246.html?v1=423952311&utm_source=google&utm_medium=cpc&gad_source=1&gad_campaignid=21616137796&gbraid=0AAAAADqbk7ZNs7fVZ-i0TRcnUsR_g9DVs&gclid=CjwKCAjw24vBBhABEiwANFG7yz6spdbWO9OPWIUeddzrhH-7a_Xy63w3rv_cEGeR_l57rGUUpCRNRBoCm7IQAvD_BwE"
+                        },
+                        {
+                            name: "Slim-Fit Grey Jeans",
+                            price: "$49.99",
+                            description: "Versatile slim-fit grey jeans with stretch for exceptional comfort. Perfect for casual outings or dressed up with a blazer for a smart-casual look.",
+                            image: "images/product-2.jpg",
+                            hasImage: true,
+                            productUrl: "https://www2.hm.com/en_us/productpage.1263923003.html"
+                        },
+                        {
+                            name: "Golden Goose Superstar Sneakers",
+                            price: "$495.00",
+                            description: "Iconic Golden Goose Superstar sneakers featuring the signature distressed finish and star detail. Handcrafted in Italy with premium leather, these shoes offer both comfort and distinctive style for casual luxury.",
+                            image: "images/product-3.jpg",
+                            hasImage: true,
+                            productUrl: "https://www.goldengoose.com/us/en/superstar-sneakers-in-leather-with-suede-star-GWF00102.F002143.80203.html"
+                        }
+                    ],
+                    // Video 2 products - others omitted for brevity
+                ];
+                
+                return productsForVideos[videoIndex][productIndex];
+            }
+            
+            // Copy of showProductModal function from for-you.js
+            function showProductModal(product, scrollY) {
+                console.log("Showing product modal for:", product.name);
+                
+                try {
+                    // Use passed scrollY or get current scroll position
+                    const currentScrollY = scrollY !== undefined ? scrollY : (window.scrollY || window.pageYOffset);
+                    
+                    // Check if modal already exists
+                    let modal = document.getElementById('product-modal');
+                    
+                    // Create modal if it doesn't exist
+                    if (!modal) {
+                        modal = document.createElement('div');
+                        modal.id = 'product-modal';
+                        modal.className = 'product-modal';
+                        document.body.appendChild(modal);
+                        console.log("Created new product modal");
+                    } else {
+                        console.log("Using existing product modal");
+                    }
+                    
+                    // Prepare the image HTML based on whether the product has an image
+                    let imageHtml = '';
+                    if (product.hasImage) {
+                        imageHtml = `<img src="${product.image}" alt="${product.name}" class="product-image-content">`;
+                    } else {
+                        imageHtml = `<div class="product-placeholder">Product image not available</div>`;
+                    }
+                    
+                    // Set modal content
+                    modal.innerHTML = `
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3>${product.name}</h3>
+                                <button class="close-modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="product-image">
+                                    ${imageHtml}
+                                </div>
+                                <div class="product-details">
+                                    <div class="product-price">${product.price}</div>
+                                    <p class="product-description">${product.description}</p>
+                                    <div class="product-options">
+                                        <div class="size-selector">
+                                            <label>Size:</label>
+                                            <div class="size-options">
+                                                <button class="size-option">S</button>
+                                                <button class="size-option">M</button>
+                                                <button class="size-option">L</button>
+                                                <button class="size-option">XL</button>
+                                            </div>
+                                        </div>
+                                        <div class="quantity-selector">
+                                            <label>Quantity:</label>
+                                            <div class="quantity-controls">
+                                                <button class="quantity-decrease">-</button>
+                                                <span class="quantity-value">1</span>
+                                                <button class="quantity-increase">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="buy-now-btn">Buy Now</button>
+                                    <button class="find-availability-btn">Find Nearby Availability</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="availability-overlay">
+                            <div class="availability-container">
+                                <div class="availability-header">
+                                    <h3>Nearby Store Availability</h3>
+                                    <button class="close-availability">&times;</button>
+                                </div>
+                                <div class="availability-content">
+                                    <div class="store-list">
+                                        <!-- Store availability will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Ensure the modal is correctly positioned in the viewport
+                    modal.style.top = "0";
+                    modal.style.left = "0";
+                    
+                    // Prevent body scroll and store the current position
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${currentScrollY}px`;
+                    document.body.style.width = '100%';
+                    
+                    // Show modal - ensure it's visible
+                    modal.style.display = 'flex';
+                    
+                    // Force a reflow before adding the active class for better animation
+                    void modal.offsetWidth;
+                    
+                    modal.classList.add('active');
+                    console.log("Modal activated");
+                    
+                    // Store availability data - normally this would come from an API
+                    const storeAvailabilityData = [
+                        {
+                            name: "Mall of the Emirates",
+                            distance: "5.2 km",
+                            address: "Sheikh Zayed Road, Al Barsha, Dubai, UAE",
+                            availability: {
+                                "S": "in_stock",
+                                "M": "in_stock",
+                                "L": "limited",
+                                "XL": "out_of_stock"
+                            }
+                        },
+                        {
+                            name: "Dubai Mall",
+                            distance: "12.7 km",
+                            address: "Financial Centre Road, Downtown Dubai, UAE",
+                            availability: {
+                                "S": "limited",
+                                "M": "in_stock",
+                                "L": "in_stock",
+                                "XL": "in_stock"
+                            }
+                        },
+                        {
+                            name: "City Centre Mirdif",
+                            distance: "18.3 km",
+                            address: "Sheikh Mohammed Bin Zayed Road, Mirdif, Dubai, UAE",
+                            availability: {
+                                "S": "out_of_stock",
+                                "M": "limited",
+                                "L": "out_of_stock",
+                                "XL": "limited"
+                            }
+                        },
+                        {
+                            name: "Dubai Festival City Mall",
+                            distance: "15.8 km",
+                            address: "Dubai Festival City, Ras Al Khor, Dubai, UAE",
+                            availability: {
+                                "S": "in_stock",
+                                "M": "out_of_stock",
+                                "L": "in_stock",
+                                "XL": "out_of_stock"
+                            }
+                        }
+                    ];
+                    
+                    // Function to update the store list based on selected size
+                    function updateStoreAvailability(size) {
+                        const storeList = modal.querySelector('.store-list');
+                        storeList.innerHTML = '';
+                        
+                        storeAvailabilityData.forEach(store => {
+                            const availabilityStatus = store.availability[size];
+                            let statusClass = '';
+                            let statusText = '';
+                            
+                            switch(availabilityStatus) {
+                                case 'in_stock':
+                                    statusClass = 'status-available';
+                                    statusText = 'In Stock';
+                                    break;
+                                case 'limited':
+                                    statusClass = 'status-limited';
+                                    statusText = 'Limited Stock';
+                                    break;
+                                case 'out_of_stock':
+                                    statusClass = 'status-unavailable';
+                                    statusText = 'Unavailable';
+                                    break;
+                                default:
+                                    statusClass = 'status-unavailable';
+                                    statusText = 'Unavailable';
+                            }
+                            
+                            storeList.innerHTML += `
+                                <div class="store-item">
+                                    <div class="store-details">
+                                        <h4 class="store-name">${store.name}</h4>
+                                        <p class="store-distance">${store.distance}</p>
+                                        <p class="store-address">${store.address}</p>
+                                    </div>
+                                    <div class="store-availability ${statusClass}">
+                                        <span class="availability-indicator"></span>
+                                        <span class="availability-text">Size ${size}: ${statusText}</span>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+                    
+                    // Close modal when clicking the close button
+                    modal.querySelector('.close-modal').addEventListener('click', function() {
+                        console.log("Close modal clicked");
+                        modal.classList.remove('active');
+                        
+                        // Reset body position after animation completes
+                        setTimeout(() => {
+                            document.body.style.overflow = '';
+                            document.body.style.position = '';
+                            document.body.style.top = '';
+                            document.body.style.width = '';
+                            
+                            // Restore scroll position
+                            window.scrollTo(0, currentScrollY);
+                        }, 400); // Match the CSS transition duration
+                    });
+                    
+                    // Close modal when clicking outside the content
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) {
+                            console.log("Clicked outside modal, closing");
+                            modal.classList.remove('active');
+                            
+                            // Reset body position after animation completes
+                            setTimeout(() => {
+                                document.body.style.overflow = '';
+                                document.body.style.position = '';
+                                document.body.style.top = '';
+                                document.body.style.width = '';
+                                
+                                // Restore scroll position
+                                window.scrollTo(0, currentScrollY);
+                            }, 400); // Match the CSS transition duration
+                        }
+                    });
+                    
+                    // Handle Find Nearby Availability button
+                    modal.querySelector('.find-availability-btn').addEventListener('click', function() {
+                        const selectedSize = modal.querySelector('.size-option.active')?.textContent || 'M';
+                        updateStoreAvailability(selectedSize);
+                        modal.querySelector('.availability-overlay').classList.add('active');
+                    });
+                    
+                    // Handle close availability overlay
+                    modal.querySelector('.close-availability').addEventListener('click', function() {
+                        modal.querySelector('.availability-overlay').classList.remove('active');
+                    });
+                    
+                    // Close availability overlay when clicking outside the container
+                    modal.querySelector('.availability-overlay').addEventListener('click', function(e) {
+                        if (e.target === this) {
+                            this.classList.remove('active');
+                        }
+                    });
+                    
+                    // Handle size selection
+                    const sizeButtons = modal.querySelectorAll('.size-option');
+                    sizeButtons.forEach(button => {
+                        button.addEventListener('click', function() {
+                            sizeButtons.forEach(btn => btn.classList.remove('active'));
+                            this.classList.add('active');
+                            
+                            // If the availability overlay is open, update it with the new size
+                            if (modal.querySelector('.availability-overlay').classList.contains('active')) {
+                                updateStoreAvailability(this.textContent);
+                            }
+                        });
+                    });
+                    
+                    // Handle quantity increase
+                    modal.querySelector('.quantity-increase').addEventListener('click', function() {
+                        const quantityValue = modal.querySelector('.quantity-value');
+                        let quantity = parseInt(quantityValue.textContent);
+                        quantity = Math.min(quantity + 1, 10); // Max 10 items
+                        quantityValue.textContent = quantity;
+                    });
+                    
+                    // Handle quantity decrease
+                    modal.querySelector('.quantity-decrease').addEventListener('click', function() {
+                        const quantityValue = modal.querySelector('.quantity-value');
+                        let quantity = parseInt(quantityValue.textContent);
+                        quantity = Math.max(quantity - 1, 1); // Min 1 item
+                        quantityValue.textContent = quantity;
+                    });
+                    
+                    // Handle Buy Now button
+                    modal.querySelector('.buy-now-btn').addEventListener('click', function() {
+                        const size = modal.querySelector('.size-option.active')?.textContent || 'M';
+                        const quantity = modal.querySelector('.quantity-value').textContent;
+                        
+                        // Redirect to the product URL
+                        if (product.productUrl) {
+                            // Open in a new tab
+                            window.open(product.productUrl, '_blank');
+                        } else {
+                            alert(`Proceeding to checkout with ${quantity} ${product.name} (Size: ${size})`);
+                        }
+                        
+                        modal.classList.remove('active');
+                        
+                        // Reset body position
+                        setTimeout(() => {
+                            document.body.style.overflow = '';
+                            document.body.style.position = '';
+                            document.body.style.top = '';
+                            document.body.style.width = '';
+                            
+                            // Restore scroll position
+                            window.scrollTo(0, currentScrollY);
+                        }, 400);
+                    });
+                    
+                    // Set first size option as active by default
+                    const firstSizeOption = modal.querySelector('.size-option');
+                    if (firstSizeOption) {
+                        firstSizeOption.classList.add('active');
+                    }
+                } catch (error) {
+                    console.error("Error in showProductModal:", error);
+                    // Make sure body scroll is restored if there's an error
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.top = '';
+                    document.body.style.width = '';
+                    
+                    // Try to restore scroll position if we have it
+                    if (scrollY !== undefined) {
+                        window.scrollTo(0, scrollY);
+                    }
+                }
+            }
+            
+            function addTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'chat-message ai-message typing-indicator';
+                typingDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" rx="4" fill="#4A3520"/>
+                            <path d="M12 5L14.5 9.5L19 12L14.5 14.5L12 19L9.5 14.5L5 12L9.5 9.5L12 5Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="message-content">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                `;
+                
+                chatWindow.appendChild(typingDiv);
+            }
+            
+            function removeTypingIndicator() {
+                const typingIndicator = document.querySelector('.typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

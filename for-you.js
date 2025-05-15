@@ -404,28 +404,28 @@ document.addEventListener('DOMContentLoaded', function() {
             // Video 1 products
             [
                 {
-                    name: "Summer Collection Dress",
+                    name: "White Fluffy Cotton Jacket",
                     price: "$129.99",
-                    description: "Elegant summer dress with floral pattern. Lightweight, breathable fabric perfect for warm days.",
+                    description: "Luxurious white fluffy cotton jacket with a cozy textured finish. Features a relaxed silhouette, convenient front pockets, and premium quality cotton blend for both comfort and style. A perfect statement piece for your winter and spring wardrobe.",
                     image: "images/product-1.jpg",
                     hasImage: true,
                     productUrl: "https://www.zara.com/us/en/faux-fur-jacket-zw-collection-p04360246.html?v1=423952311&utm_source=google&utm_medium=cpc&gad_source=1&gad_campaignid=21616137796&gbraid=0AAAAADqbk7ZNs7fVZ-i0TRcnUsR_g9DVs&gclid=CjwKCAjw24vBBhABEiwANFG7yz6spdbWO9OPWIUeddzrhH-7a_Xy63w3rv_cEGeR_l57rGUUpCRNRBoCm7IQAvD_BwE"
                 },
                 {
-                    name: "Statement Necklace",
+                    name: "Slim-Fit Grey Jeans",
                     price: "$49.99",
-                    description: "Bold statement necklace to complement your summer outfits. Nickel-free, hypoallergenic material.",
-                    image: "images/product-1-accessory.jpg",
-                    hasImage: false,
-                    productUrl: "https://www.zara.com"
+                    description: "Versatile slim-fit grey jeans with stretch for exceptional comfort. Perfect for casual outings or dressed up with a blazer for a smart-casual look.",
+                    image: "images/product-2.jpg",
+                    hasImage: true,
+                    productUrl: "https://www2.hm.com/en_us/productpage.1263923003.html"
                 },
                 {
-                    name: "Strappy Sandals",
-                    price: "$79.99",
-                    description: "Comfortable strappy sandals with cushioned footbed. Perfect heel height for all-day wear.",
-                    image: "images/product-1-shoes.jpg",
-                    hasImage: false,
-                    productUrl: "https://www.zara.com"
+                    name: "Golden Goose Superstar Sneakers",
+                    price: "$495.00",
+                    description: "Iconic Golden Goose Superstar sneakers featuring the signature distressed finish and star detail. Handcrafted in Italy with premium leather, these shoes offer both comfort and distinctive style for casual luxury.",
+                    image: "images/product-3.jpg",
+                    hasImage: true,
+                    productUrl: "https://www.goldengoose.com/us/en/superstar-sneakers-in-leather-with-suede-star-GWF00102.F002143.80203.html"
                 }
             ],
             // Video 2 products
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     price: "$149.99",
                     description: "Versatile outfit perfect for transitioning from work to evening events.",
                     image: "images/product-2.jpg",
-                    hasImage: false,
+                    hasImage: true,
                     productUrl: "https://www.zara.com"
                 },
                 {
@@ -590,9 +590,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Store availability data - normally this would come from an API
             const storeAvailabilityData = [
                 {
-                    name: "Zara Fifth Avenue",
-                    distance: "1.2 miles",
-                    address: "500 Fifth Avenue, New York, NY 10110",
+                    name: "Mall of the Emirates",
+                    distance: "5.2 km",
+                    address: "Sheikh Zayed Road, Al Barsha, Dubai, UAE",
                     availability: {
                         "S": "in_stock",
                         "M": "in_stock",
@@ -601,9 +601,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 },
                 {
-                    name: "Zara SoHo",
-                    distance: "2.5 miles",
-                    address: "503 Broadway, New York, NY 10012",
+                    name: "Dubai Mall",
+                    distance: "12.7 km",
+                    address: "Financial Centre Road, Downtown Dubai, UAE",
                     availability: {
                         "S": "limited",
                         "M": "in_stock",
@@ -612,9 +612,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 },
                 {
-                    name: "Zara Hudson Yards",
-                    distance: "3.8 miles",
-                    address: "20 Hudson Yards, New York, NY 10001",
+                    name: "City Centre Mirdif",
+                    distance: "18.3 km",
+                    address: "Sheikh Mohammed Bin Zayed Road, Mirdif, Dubai, UAE",
                     availability: {
                         "S": "out_of_stock",
                         "M": "limited",
@@ -623,9 +623,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 },
                 {
-                    name: "Zara Herald Square",
-                    distance: "2.2 miles",
-                    address: "39 W 34th St, New York, NY 10001",
+                    name: "Dubai Festival City Mall",
+                    distance: "15.8 km",
+                    address: "Dubai Festival City, Ras Al Khor, Dubai, UAE",
                     availability: {
                         "S": "in_stock",
                         "M": "out_of_stock",
